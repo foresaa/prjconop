@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-09BWZP7ZL0"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-09BWZP7ZL0");
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RCEI Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+      }
+      h1 {
+        color: #2e6da4;
+      }
+      label {
+        font-weight: bold;
+      }
+      input[type="number"] {
+        width: 100px;
+        padding: 5px;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #2e6da4;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .result {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Russell Communication Efficiency Index (RCEI) Calculator</h1>
+    <p>Enter the values for each parameter to calculate the RCEI:</p>
+
+    <form id="rceiForm">
+      <label for="w1">Weight for Response Time (w1):</label>
+      <input
+        type="number"
+        id="w1"
+        name="w1"
+        step="0.01"
+        min="0"
+        max="1"
+        required
+      /><br /><br />
+
+      <label for="w2">Weight for Information Accuracy (w2):</label>
+      <input
+        type="number"
+        id="w2"
+        name="w2"
+        step="0.01"
+        min="0"
+        max="1"
+        required
+      /><br /><br />
+
+      <label for="w3">Weight for Message Clarity (w3):</label>
+      <input
+        type="number"
+        id="w3"
+        name="w3"
+        step="0.01"
+        min="0"
+        max="1"
+        required
+      /><br /><br />
+
+      <label for="w4">Weight for Channel Effectiveness (w4):</label>
+      <input
+        type="number"
+        id="w4"
+        name="w4"
+        step="0.01"
+        min="0"
+        max="1"
+        required
+      /><br /><br />
+
+      <label for="rt">Response Time (RT) [0 to 1]:</label>
+      <input
+        type="number"
+        id="rt"
+        name="rt"
+        step="0.01"
+        min="0"
+        max="1"
+        required
+      /><br /><br />
+
+      <label for="ia">Information Accuracy (IA) [0 to 1]:</label>
+      <input
+        type="number"
+        id="ia"
+        name="ia"
+        step="0.01"
+        min="0"
+        max="1"
+        required
+      /><br /><br />
+
+      <label for="mc">Message Clarity (MC) [0 to 1]:</label>
+      <input
+        type="number"
+        id="mc"
+        name="mc"
+        step="0.01"
+        min="0"
+        max="1"
+        required
+      /><br /><br />
+
+      <label for="ce">Channel Effectiveness (CE) [0 to 1]:</label>
+      <input
+        type="number"
+        id="ce"
+        name="ce"
+        step="0.01"
+        min="0"
+        max="1"
+        required
+      /><br /><br />
+
+      <button type="button" onclick="calculateRCEI()">Calculate RCEI</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+      function calculateRCEI() {
+        // Get the input values
+        let w1 = parseFloat(document.getElementById("w1").value);
+        let w2 = parseFloat(document.getElementById("w2").value);
+        let w3 = parseFloat(document.getElementById("w3").value);
+        let w4 = parseFloat(document.getElementById("w4").value);
+
+        let rt = parseFloat(document.getElementById("rt").value);
+        let ia = parseFloat(document.getElementById("ia").value);
+        let mc = parseFloat(document.getElementById("mc").value);
+        let ce = parseFloat(document.getElementById("ce").value);
+
+        // Check that weights add up to 1
+        if (w1 + w2 + w3 + w4 !== 1) {
+          alert("The weights must add up to 1.");
+          return;
+        }
+
+        // Calculate the RCEI
+        let rcei = w1 * rt + w2 * ia + w3 * mc + w4 * ce;
+
+        // Display the result
+        document.getElementById("result").innerHTML =
+          "The calculated RCEI is: " + rcei.toFixed(2);
+
+        // Display interpretation
+        let interpretation = "";
+        if (rcei >= 0.9) {
+          interpretation = "Excellent communication efficiency";
+        } else if (rcei >= 0.8) {
+          interpretation =
+            "Good communication efficiency with some room for improvement";
+        } else if (rcei >= 0.7) {
+          interpretation =
+            "Moderate communication efficiency with significant room for improvement";
+        } else {
+          interpretation =
+            "Poor communication efficiency; needs major improvements";
+        }
+        document.getElementById("result").innerHTML += "<br>" + interpretation;
+      }
+    </script>
+  </body>
+</html>
